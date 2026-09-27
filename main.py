@@ -1,7 +1,13 @@
 import uvicorn
 from fastapi import FastAPI
 
-app = FastAPI()
+from app.deps import build_engine
+from app.routes import register
+
+app = FastAPI(title="multi-tenant-api-gateway")
+
+_engine = build_engine()
+register(app, _engine)
 
 
 @app.get("/")
